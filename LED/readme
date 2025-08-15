@@ -1,1 +1,1 @@
-
+Code for blinking leds. Connect the button to the PDO, led1 to PC1, led2 to PD2, led3 to PD3 , led4 to PD4.  
