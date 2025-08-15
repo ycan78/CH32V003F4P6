@@ -1,1 +1,2 @@
-
+Code for driving the motor and counting the encoder clicks, send M2 to start to motor and M1 to stop it.
+Connect enable of the driver to PC1 AND input pins of driver to PD2, PD3. Also connect output pins of encoder to PC4 and PC5
