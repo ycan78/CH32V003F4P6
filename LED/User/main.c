@@ -72,13 +72,20 @@ void initializeLEDGPIOs(){
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOC, ENABLE);
 
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_2;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 
+
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2 | GPIO_Pin_3 |GPIO_Pin_4; 
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_30MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 
+    GPIO_Init(GPIOD, &GPIO_InitStructure);
+
+    
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_30MHz;
     GPIO_Init(GPIOC, &GPIO_InitStructure);
 
     GPIO_EXTILineConfig(GPIO_PortSourceGPIOD, GPIO_PinSource0);
@@ -113,7 +120,7 @@ void blinkLEDs()
 {
 
     for(int i=0; i<20; i++){
-    GPIO_WriteBit(GPIOD, GPIO_Pin_0, (GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_0)==Bit_SET ? Bit_RESET: Bit_SET));
+    GPIO_WriteBit(GPIOD, GPIO_Pin_4, (GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_0)==Bit_SET ? Bit_RESET: Bit_SET));
     Delay_Ms(50);
 
     GPIO_WriteBit(GPIOD, GPIO_Pin_2, (GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_2)==Bit_SET ? Bit_RESET: Bit_SET));
@@ -183,4 +190,5 @@ void EXTI7_0_IRQHandler(void)
         buttonPressed = 1; 
         EXTI_ClearITPendingBit(EXTI_Line0); 
     }
+
 }
